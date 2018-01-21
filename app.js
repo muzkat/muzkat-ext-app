@@ -1,4 +1,3 @@
-'use strict';
 /**
  * ExtJS Prototype kit by muzkat
  *
@@ -8,30 +7,23 @@
  * @returns {{appDescriptor: {name: *, mainComponent: *, loginNeeded: *}, app: undefined, launchApp: launchApp, defineBaseClass: defineBaseClass, start: start}}
  */
 function muzkatApp(name, mainComponent, loginNeeded) {
-    /**
-     * app definiton
-     * @type {{name: *, mainComponent: *, loginNeeded: *}}
-     */
-    var appDescriptor = {
-        name: name,
-        mainComponent: mainComponent,
-        loginNeeded: loginNeeded
-    };
 
-    /**
-     * application itself
-     * @type {{appDescriptor: {name: *, mainComponent: *, loginNeeded: *}, app: undefined, launchApp: launchApp, defineBaseClass: defineBaseClass, start: start}}
-     */
-    var app = {
-        appDescriptor: appDescriptor,
+    var appName = name;
+    var appMainComponent = mainComponent;
+    var appLoginNeeded = loginNeeded;
+
+    return {
         app: undefined,
+        appName: appName,
+        appMainComponent: appMainComponent,
+        appLoginNeeded:appLoginNeeded,
         /**
          *
          * @param descriptor
          */
-        launchApp: function (descriptor) {
-            this.appDescriptor = descriptor;
-            this.defineBaseClass(this.appDescriptor.name, this.appDescriptor.mainComponent, this.appDescriptor.loginNeeded);
+        launchApp: function () {
+            //   this.appDescriptor = descriptor;
+            this.defineBaseClass();
             this.start();
         },
         /**
@@ -40,13 +32,14 @@ function muzkatApp(name, mainComponent, loginNeeded) {
          * @param mainComponent
          * @param loginNeeded
          */
-        defineBaseClass: function (name, mainComponent, loginNeeded) {
-            Ext.define(name + '.MainApplication', {
+        defineBaseClass: function () {
+            var me = this;
+            Ext.define(me.appName + '.MainApplication', {
                 extend: 'Ext.container.Container',
                 layout: 'fit',
 
-                requestLogin: loginNeeded,
-                mainComponent: mainComponent,
+                requestLogin: me.appLoginNeeded,
+                mainComponent: me.appMainComponent,
 
                 initComponent: function () {
                     var items = [];
@@ -69,15 +62,14 @@ function muzkatApp(name, mainComponent, loginNeeded) {
         start: function () {
             var me = this;
             this.app = Ext.application({
-                name: me.appDescriptor.name,
-                mainView: me.appDescriptor.name + '.MainApplication',
+                name: me.appName,
+                mainView: me.appName + '.MainApplication',
                 launch: function () {
-                    Ext.log(me.appDescriptor.name + ' booted!');
+                    Ext.log(me.appName + ' booted!');
                 }
             });
         }
     };
-    return app;
 }
 
 module.exports = muzkatApp;
