@@ -31,7 +31,7 @@ function muzkatApp(name, mainComponent, loginNeeded) {
          */
         launchApp: function (descriptor) {
             this.appDescriptor = descriptor;
-            this.defineBaseClass(appDescriptor.name, appDescriptor.mainComponent, appDescriptor.loginNeeded);
+            this.defineBaseClass(this.appDescriptor.name, this.appDescriptor.mainComponent, this.appDescriptor.loginNeeded);
             this.start();
         },
         /**
