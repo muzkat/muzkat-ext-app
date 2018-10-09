@@ -4,6 +4,7 @@
  * @param name
  * @param mainComponent
  * @param loginNeeded
+ * @param file
  * @returns {{appDescriptor: {name: *, mainComponent: *, loginNeeded: *}, app: undefined, launchApp: launchApp, defineBaseClass: defineBaseClass, start: start}}
  */
 function muzkatApp(name, mainComponent, loginNeeded, file) {
@@ -22,8 +23,12 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
          * @param descriptor
          */
         launchApp: function () {
-            this.defineBaseClass();
-            this.start();
+            if (typeof window.Ext !== 'undefined') {
+                this.defineBaseClass();
+                this.start();
+            } else {
+                alert('Framework is not available. Application cannot be startet.');
+            }
         },
         /**
          *
