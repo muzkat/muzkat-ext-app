@@ -26,6 +26,7 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
             if (typeof window.Ext !== 'undefined') {
                 this.defineBaseClass();
                 this.start();
+                return this.app;
             } else {
                 alert('Framework is not available. Application cannot be startet.');
             }
