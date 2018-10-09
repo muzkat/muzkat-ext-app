@@ -29,6 +29,7 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
                 return this.app;
             } else {
                 alert('Framework is not available. Application cannot be startet.');
+                return false;
             }
         },
         /**
