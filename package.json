@@ -12,8 +12,6 @@
     "type": "git",
     "url": "https://github.com/muzkat/muzkat-ext-app"
   },
-  "dependencies": {
-  },
   "devDependencies": {
     "express": "^4.16.2",
     "browserify": "^15.2.0",

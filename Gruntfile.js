@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         // },
         watch: {
             scripts: {
-                files: ['demo/**/*.js', 'demo/**/*.html', 'app.js', 'app/**/*.js'],
+                files: ['demo/**/*.js', 'demo/**/*.html', 'src/app.js', 'app/**/*.js'],
                 tasks: ['dev'],
                 options: {
                     spawn: false,
@@ -18,7 +18,7 @@ module.exports = function (grunt) {
         browserify : {
             dev : {
                 src : ['app/**/*.js'],
-                dest : './demo/js/bundle.js',
+                dest : './public/js/bundle.js',
                 options : {
                    // watch : true, // use watchify for incremental builds!
                   //  keepAlive : true, // watchify will exit unless task is kept alive
