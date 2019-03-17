@@ -1,46 +1,40 @@
 /**
- * ExtJS Prototype kit by muzkat
  *
  * @param name
  * @param mainComponent
  * @param loginNeeded
  * @param file
- * @returns {{appDescriptor: {name: *, mainComponent: *, loginNeeded: *}, app: undefined, launchApp: launchApp, defineBaseClass: defineBaseClass, start: start}}
+ * @returns {{app: undefined, appMainComponent: *, appName: string, appLoginNeeded: *, start: (function(): *), defineBaseClass: (function(): void), launchApp: launchApp}}
  */
 function muzkatApp(name, mainComponent, loginNeeded, file) {
 
-    var appName = name;
-    var appMainComponent = mainComponent;
-    var appLoginNeeded = loginNeeded;
-
     return {
         app: undefined,
-        appName: appName,
-        appMainComponent: appMainComponent,
-        appLoginNeeded: appLoginNeeded,
+        appName: 'mzk',
+        appMainComponent: mainComponent,
+        appLoginNeeded: loginNeeded,
+
         /**
          *
-         * @param descriptor
+         * @returns {*}
          */
         launchApp: function () {
             if (typeof window.Ext !== 'undefined') {
-                this.defineBaseClass();
-                this.start();
+                //this.defineBaseClass(); // TODO async + singleton Api
+                this.app = this.start();
                 return this.app;
             } else {
                 alert('Framework is not available. Application cannot be startet.');
                 return false;
             }
         },
+
         /**
          *
-         * @param name
-         * @param mainComponent
-         * @param loginNeeded
          */
         defineBaseClass: function () {
             var me = this;
-            Ext.define(me.appName + '.MainApplication', {
+            return Ext.define(me.appName + '.MainApplication', {
                 extend: 'Ext.container.Container',
                 alias: 'widget.' + me.appName + 'Main',
                 layout: 'fit',
@@ -66,11 +60,7 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
                             items = [{
                                 xtype: 'button',
                                 layout: 'fit',
-                                text: 'Muzkat Frame was loaded without module OR supplied with a module url.',
-                                handler: function (btn) {
-                                    var mv = btn.up(appName + 'Main');
-                                    mv.changeComponent();
-                                }
+                                text: 'Muzkat Frame was loaded without module OR supplied with a module url.'
                             }];
                         }
                     }
@@ -121,17 +111,18 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
                 }
             });
         },
+
         /**
          *
+         * @returns {*}
          */
         start: function () {
             var me = this;
-            this.app = Ext.application({
-                name: me.appName,
-                muzkatAppRef: this,
-                mainView: me.appName + '.MainApplication',
+            return Ext.application({
+                name: 'mzk',
+                mainView: {xtype: me.appMainComponent},
                 launch: function () {
-                    Ext.log(me.appName + ' booted!');
+                    Ext.log('Mzk wrapper booted!');
                 }
             });
         }

@@ -5,5 +5,5 @@ var externalFile = {
     cmp: 'muzkatMap'
 };
 
-var pt = new muzkatApp('MuzkatExtDemoApp', false, false, externalFile);
+var pt = new muzkatApp('MuzkatExtDemoApp', 'button', false, externalFile);
 pt.launchApp();
