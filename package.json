@@ -13,7 +13,6 @@
     "url": "https://github.com/muzkat/muzkat-ext-app"
   },
   "devDependencies": {
-    "express": "^4.16.2",
     "browserify": "^15.2.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.2.0",
