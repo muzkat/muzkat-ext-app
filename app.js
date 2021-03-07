@@ -14,10 +14,6 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
         appMainComponent: mainComponent,
         appLoginNeeded: loginNeeded,
 
-        /**
-         *
-         * @returns {*}
-         */
         launchApp: function () {
             if (typeof window.Ext !== 'undefined') {
                 //this.defineBaseClass(); // TODO async + singleton Api
@@ -29,19 +25,15 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
             }
         },
 
-        /**
-         *
-         */
         defineBaseClass: function () {
-            var me = this;
-            return Ext.define(me.appName + '.MainApplication', {
+            return Ext.define(this.appName + '.MainApplication', {
                 extend: 'Ext.container.Container',
-                alias: 'widget.' + me.appName + 'Main',
+                alias: 'widget.' + this.appName + 'Main',
                 layout: 'fit',
 
-                requestLogin: me.appLoginNeeded,
-                mainComponent: me.appMainComponent,
-                appName: me.appName,
+                requestLogin: this.appLoginNeeded,
+                mainComponent: this.appMainComponent,
+                appName: this.appName,
 
                 fileArray: [],
 
@@ -79,13 +71,10 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
                 },
 
                 loadScripts: function (jsCssArray) {
-                    var loadingArray = [], me = this;
-                    return new Ext.Promise(function (resolve, reject) {
-                        Ext.Array.each(jsCssArray, function (url) {
-                            loadingArray.push(me.loadScript(url));
-                        });
-
-                        Ext.Promise.all(loadingArray).then(function (success) {
+                    let loadingArray = [];
+                    return new Promise(function (resolve, reject) {
+                        loadingArray = jsCssArray.map(url => this.loadScript(url));
+                        Promise.all(loadingArray).then(function (success) {
                                 console.log('artefacts were loaded successfully');
                                 resolve('');
                             },
@@ -96,7 +85,7 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
                 },
 
                 loadScript: function (url) {
-                    return new Ext.Promise(function (resolve, reject) {
+                    return new Promise(function (resolve, reject) {
                         Ext.Loader.loadScript({
                             url: url,
                             onLoad: function () {
@@ -112,15 +101,10 @@ function muzkatApp(name, mainComponent, loginNeeded, file) {
             });
         },
 
-        /**
-         *
-         * @returns {*}
-         */
         start: function () {
-            var me = this;
             return Ext.application({
                 name: 'mzk',
-                mainView: {xtype: me.appMainComponent},
+                mainView: {xtype: this.appMainComponent},
                 launch: function () {
                     Ext.log('Mzk wrapper booted!');
                 }

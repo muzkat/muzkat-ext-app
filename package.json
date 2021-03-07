@@ -1,5 +1,5 @@
 {
-  "name": "muzkat-ext-app",
+  "name": "@muzkat/muzkat-ext-app",
   "version": "1.0.10",
   "description": "",
   "main": "app.js",
@@ -9,13 +9,7 @@
   "author": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/muzkat/muzkat-ext-app"
+    "url": "git+https://github.com/muzkat/muzkat-ext-app"
   },
-  "devDependencies": {
-    "browserify": "^15.2.0",
-    "grunt": "^1.0.1",
-    "grunt-browserify": "^5.2.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-watch": "^1.0.0"
-  }
+  "devDependencies": {}
 }

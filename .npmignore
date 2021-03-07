@@ -1,0 +1,6 @@
+build/
+src/
+public/
+app/
+.idea/
+test.js
